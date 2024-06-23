@@ -79,8 +79,16 @@ export default function WeaponItems() {
                                     <Slash />
                                 </BreadcrumbSeparator>
                                 <BreadcrumbItem>
-                                    <BreadcrumbPage className="font-bold">
+                                    <BreadcrumbLink href="/items/magic-items/weapons">
                                         Weapons
+                                    </BreadcrumbLink>
+                                </BreadcrumbItem>
+                                <BreadcrumbSeparator>
+                                    <Slash />
+                                </BreadcrumbSeparator>
+                                <BreadcrumbItem>
+                                    <BreadcrumbPage className="font-bold">
+                                        {weapon.id}
                                     </BreadcrumbPage>
                                 </BreadcrumbItem>
                             </BreadcrumbList>
@@ -97,22 +105,19 @@ export default function WeaponItems() {
                 <Divider className="p-[1px] bg-blue-600" />
                 <div className="grid grid-cols-1 gap-6 mt-6">
                     <Card className="p-4 shadow-md rounded-lg">
-
                         <div className="flex">
-
                             <div className="ml-6">
                                 <div>
-                                {imageUrl && (
-                                <div className="size-full">
-                                    <Image
-
-                                        src={imageUrl}
-                                        alt={weapon.name}
-                                    />
+                                    {imageUrl && (
+                                        <div className="size-full">
+                                            <Image
+                                                src={imageUrl}
+                                                alt={weapon.name}
+                                            />
+                                        </div>
+                                    )}
                                 </div>
-                            )}
-                                </div>
-                                <Divider className="mt-2"/>
+                                <Divider className="mt-2" />
                                 <p className="text-gray-600 mb-2">
                                     {weapon.type} - {weapon.rarity}
                                 </p>
@@ -142,11 +147,17 @@ export default function WeaponItems() {
                                         {weapon.abilities_4}
                                     </p>
                                 )}
-                                <h3 className="text-xl font-semibold">
+                                <h3 className="text-xl font-semibold mb-2">
                                     Passive Abilities
                                 </h3>
-                                <p className="text-gray-700">
+                                <p className="text-gray-700 mb-4">
                                     {weapon.p_abilities}
+                                </p>
+                                <h4 className="text-xl font-semibold">
+                                    Requirement
+                                </h4>
+                                <p className="text-gray-700 mb-4">
+                                    {weapon.requirement}
                                 </p>
                             </div>
                         </div>

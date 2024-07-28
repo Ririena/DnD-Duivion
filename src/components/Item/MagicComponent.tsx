@@ -72,8 +72,16 @@ export default function MagicComponent() {
                                         <Slash />
                                     </BreadcrumbSeparator>
                                     <BreadcrumbItem>
-                                        <BreadcrumbPage className="font-bold">
+                                        <BreadcrumbLink href="/items">
                                             Items
+                                        </BreadcrumbLink>
+                                        <BreadcrumbSeparator>
+                                            <Slash />
+                                        </BreadcrumbSeparator>
+                                        <BreadcrumbPage>
+                                            <BreadcrumbItem className="font-bold">
+                                                Magic-Items
+                                            </BreadcrumbItem>
                                         </BreadcrumbPage>
                                     </BreadcrumbItem>
                                 </BreadcrumbList>

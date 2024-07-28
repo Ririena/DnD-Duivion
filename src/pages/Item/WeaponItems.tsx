@@ -97,38 +97,34 @@ export default function WeaponItems() {
                     <Divider className="p-[1px] bg-blue-600" />
                     <div className="grid sm:grid-cols-1 md:grid-cols-2  lg:xl:grid-cols-4 gap-6 mt-6">
                         {weapons.map((weapon) => (
-                            <>
-                                <Link
-                                    href={`/items/magic-items/weapons/${weapon.id}`}
-                                >
-                                    <Card
-                                        key={weapon.id}
-                                        className="p-4 shadow-lg rounded-lg"
-                                    >
-                                       {images[weapon.id] ? (
-                                    <div className="mb-4">
-                                        <Image
-                                            src={images[weapon.id]}
-                                            alt={weapon.name}
-                                            className="object-contain"
-                                        />
-                                    </div>
-                                ) : (
-                                    <div className="mb-4">
-                                        <Image
-                                            src="/magic-items.png" // Placeholder image or loading state
-                                            alt={weapon.name}
-                                            className="object-contain"
-                                        />
-                                    </div>
-                                )}
-                                        <Divider />
-                                        <h1 className="mt-2 text-xl font-semibold text-center">
-                                            {weapon.name}
-                                        </h1>
-                                    </Card>
-                                </Link>
-                            </>
+                            <Link
+                                key={weapon.id}
+                                href={`/items/magic-items/weapons/${weapon.id}`}
+                            >
+                                <Card className="p-4 shadow-lg rounded-lg">
+                                    {images[weapon.id] ? (
+                                        <div className="mb-4">
+                                            <Image
+                                                src={images[weapon.id]}
+                                                alt={weapon.name}
+                                                className="object-contain"
+                                            />
+                                        </div>
+                                    ) : (
+                                        <div className="mb-4">
+                                            <Image
+                                                src="/magic-items.png" // Placeholder image or loading state
+                                                alt={weapon.name}
+                                                className="object-contain"
+                                            />
+                                        </div>
+                                    )}
+                                    <Divider />
+                                    <h1 className="mt-2 text-xl font-semibold text-center">
+                                        {weapon.name}
+                                    </h1>
+                                </Card>
+                            </Link>
                         ))}
                     </div>
                 </section>

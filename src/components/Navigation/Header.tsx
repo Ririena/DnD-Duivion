@@ -17,13 +17,13 @@ const Header = () => {
             </NavbarBrand>
             <NavbarContent className="hidden sm:flex gap-4" justify="center">
                 <NavbarItem>
-                    <Link color="foreground" href="#">
+                    <Link color="foreground" href="/campaign/1">
                         Story
                     </Link>
                 </NavbarItem>
                 <NavbarItem isActive>
-                    <Link href="/characters" aria-current="page">
-                        Characters
+                    <Link href="/plot" aria-current="page">
+                        Plot
                     </Link>
                 </NavbarItem>
                 <NavbarItem>
@@ -37,7 +37,7 @@ const Header = () => {
                     <Link href="#">Login</Link>
                 </NavbarItem>
                 <NavbarItem>
-                    <Button color="primary">Sign Up</Button>
+                    <Button color="primary">Homebrew</Button>
                 </NavbarItem>
             </NavbarContent>
         </Navbar>

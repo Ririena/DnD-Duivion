@@ -14,6 +14,9 @@ import CampaignId from "./pages/Item/CampaignId";
 import CreateChar from "./pages/Function/CreateChar";
 import Plot from "./pages/Plot";
 import CreateChapter from "./pages/Function/CreateChapter";
+import CharacterSheet from "./pages/Item/CharacterSheet";
+import PlotId from "./pages/Item/PlotId";
+import PlotEdit from "./pages/Item/PlotEdit";
 
 function App() {
     const withLayout = (LayoutComponent: any, ChildComponent: any) => {
@@ -26,17 +29,32 @@ function App() {
     const HomeWithLayout = withLayout(HomeLayout, Home);
     return (
         <>
+        <div className="scroll-container">
+
             <Routes>
+
                 <Route path="/" element={<HomeWithLayout />}>
                     <Route index element={<Home />} />
                     <Route path="campaign">
                         <Route index element={<Story />} />
                         <Route path=":campaignId">
                             <Route index element={<CampaignId />} />
+                            <Route path="character">
+                                <Route
+                                    path=":characterId"
+                                    element={<CharacterSheet />}
+                                />
+                            </Route>
                         </Route>
                     </Route>
                     <Route path="plot">
                         <Route index element={<Plot />} />
+                        <Route path="edit">
+                            <Route path=":plotId" element={<PlotEdit/>} />
+                        </Route>
+                        <Route path=":plotId">
+                            <Route index element={<PlotId />} />
+                        </Route>
                     </Route>
                     <Route path="items">
                         <Route index element={<Item />} />
@@ -71,6 +89,8 @@ function App() {
                     </Route>
                 </Route>
             </Routes>
+        </div>
+
         </>
     );
 }

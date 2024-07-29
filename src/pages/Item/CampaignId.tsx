@@ -12,10 +12,13 @@ import {
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Slash } from "lucide-react";
+import ClipLoader from "react-spinners/ClipLoader"; // Import the spinner
+
 export default function CampaignId() {
     const [campaignData, setCampaignData] = useState(null);
     const [image, setImage] = useState(null);
     const [characters, setCharacters] = useState([]);
+    const [loading, setLoading] = useState(true);
     const { campaignId } = useParams();
 
     useEffect(() => {
@@ -45,6 +48,8 @@ export default function CampaignId() {
                 }
             } catch (error) {
                 console.error(error);
+            } finally {
+                setLoading(false); // Set loading to false after data is fetched
             }
         }
 
@@ -77,6 +82,8 @@ export default function CampaignId() {
                 }
             } catch (error) {
                 console.error(error);
+            } finally {
+                setLoading(false); // Set loading to false after data is fetched
             }
         }
 
@@ -85,25 +92,29 @@ export default function CampaignId() {
         }
     }, [campaignId]);
 
+    if (loading) {
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <ClipLoader size={150} color={"#123abc"} loading={loading} />
+            </div>
+        );
+    }
+
     return (
-        <main className="container mx-auto px-4  font-violet">
+        <main className="container mx-auto px-4 font-violet">
             <section className="flex justify-between">
                 <div className="mt-8 w-full">
                     <Card className="p-2 shadow-md rounded-[4px]">
                         <Breadcrumb>
                             <BreadcrumbList>
                                 <BreadcrumbItem>
-                                    <BreadcrumbLink href="/">
-                                        Home
-                                    </BreadcrumbLink>
+                                    <BreadcrumbLink href="/">Home</BreadcrumbLink>
                                 </BreadcrumbItem>
                                 <BreadcrumbSeparator>
                                     <Slash />
                                 </BreadcrumbSeparator>
                                 <BreadcrumbItem>
-                                    <BreadcrumbPage className="">
-                                        Campaign
-                                    </BreadcrumbPage>
+                                    <BreadcrumbPage>Campaign</BreadcrumbPage>
                                 </BreadcrumbItem>
                                 <BreadcrumbSeparator>
                                     <Slash />
@@ -126,9 +137,7 @@ export default function CampaignId() {
                 <div className="flex-1">
                     <Card className="p-6 shadow-lg rounded-lg">
                         <h2 className="text-2xl font-bold mb-4">
-                            {campaignData
-                                ? campaignData.nama_campaign
-                                : "Loading..."}
+                            {campaignData ? campaignData.nama_campaign : "Loading..."}
                         </h2>
                         <Divider className="my-4" />
                         <div className="flex justify-center mb-4">
@@ -156,7 +165,7 @@ export default function CampaignId() {
                         Characters List
                     </h2>
                     <Divider className="mb-4" />
-                    <div className="grid gap-4 grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    <div className="grid gap-4 grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
                         {characters.map((character) => (
                             <Link
                                 key={character.id}
@@ -165,9 +174,7 @@ export default function CampaignId() {
                                 <Card className="hover:cursor-pointer p-4 bg-white shadow-lg rounded-lg transition-transform transform hover:scale-105">
                                     <div className="flex justify-center items-center mb-4">
                                         <Image
-                                            src={
-                                                character.imageUrl || "No image"
-                                            }
+                                            src={character.imageUrl || "No image"}
                                             alt="Character Image"
                                             width={100}
                                             height={100}

@@ -3,6 +3,8 @@ import { Card } from "@/components/ui/card";
 import { Divider, Image } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 import { Slash } from "lucide-react";
+import { supabase } from "@/utils/supabase";
+import { useEffect, useState } from "react";
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -13,25 +15,32 @@ import {
 } from "@/components/ui/breadcrumb";
 
 const Plot = () => {
+    const [chapterData, setChapterData] = useState([]);
+
+    useEffect(() => {
+        async function init() {
+            const { data, error } = await supabase
+                .from("Lore")
+                .select("*")
+                .order("id", { ascending: true }); // Order by id in ascending order
+            if (error) {
+                console.error(error);
+            } else {
+                setChapterData(data);
+                console.log(data);
+            }
+        }
+        init();
+    }, []);
+
     const navigate = useNavigate();
-    const chapters = [
-        {
-            id: 1,
-            title: "Chapter 1: The Beginning",
-            description: "Description of chapter 1.",
-        },
-        {
-            id: 2,
-            title: "Chapter 2: The Journey",
-            description: "Description of chapter 2.",
-        },
-        {
-            id: 3,
-            title: "Chapter 3: The Conflict",
-            description: "Description of chapter 3.",
-        },
-        // Add more chapters as needed
-    ];
+
+    const truncateText = (text: any, limit: any) => {
+        if (text.length > limit) {
+            return text.substring(0, limit) + "...";
+        }
+        return text;
+    };
 
     return (
         <>
@@ -70,33 +79,42 @@ const Plot = () => {
                 </div>
 
                 <section className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {chapters.map((chapter) => (
+                    {chapterData.map((chapter) => (
                         <Card
                             key={chapter.id}
                             className="p-4 shadow-md rounded-lg"
                         >
                             <Image
-                                alt={chapter.title}
+                                src="/Map.jpeg"
                                 className="rounded-t-lg"
                                 width="100%"
                                 height={150}
                             />
                             <div className="p-4">
                                 <h2 className="text-lg font-bold">
-                                    {chapter.title}
+                                    {chapter.lore_title}
                                 </h2>
                                 <p className="text-sm text-gray-600">
-                                    {chapter.description}
+                                    {truncateText(
+                                        chapter.lore_description,
+                                        100
+                                    )}
                                 </p>
-                                <Button className="mt-4">View Details</Button>
+                                <Button
+                                    className="mt-4 w-full"
+                                    onClick={() =>
+                                        navigate(`/plot/${chapter.id}`)
+                                    }
+                                >
+                                    View Details
+                                </Button>
                             </div>
                         </Card>
                     ))}
                 </section>
 
-                {/* Floating Action Button */}
                 <Button
-                    className="fixed bottom-8 right-8 bg-blue-500 hover:bg-blue-700 text-white text-4xl rounded-full w-16 h-16 flex justify-center items-center shadow-lg"
+                    className="fixed bottom-20 right-8 bg-blue-500 hover:bg-blue-700 text-white text-4xl rounded-full w-16 h-16 flex justify-center items-center shadow-lg z-50"
                     onClick={() => navigate("/create/create-chapter")}
                 >
                     +
